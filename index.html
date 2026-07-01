@@ -3,23 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cakes Atelier</title>
+    <title>Midnight Dessert Studio</title>
     <style>
       :root {
-        color-scheme: light;
-        --ink: #1d2528;
-        --muted: #637073;
-        --paper: #fffaf3;
-        --cream: #fff1d8;
-        --berry: #cf4f6b;
-        --mint: #64a391;
-        --cocoa: #5b3b2e;
-        --gold: #d8a13b;
+        color-scheme: dark;
+        --ink: #f7f0e8;
+        --muted: #b9aea5;
+        --panel: rgba(24, 22, 24, 0.74);
+        --line: rgba(247, 240, 232, 0.14);
+        --berry: #ff5c8a;
+        --lime: #b7f36a;
+        --amber: #f7b84b;
+        --aqua: #60d4d4;
+        --cocoa: #2a1d1a;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
@@ -27,113 +26,88 @@
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(circle at 16% 14%, rgba(207, 79, 107, 0.18), transparent 30%),
-          radial-gradient(circle at 92% 18%, rgba(100, 163, 145, 0.2), transparent 28%),
-          linear-gradient(140deg, #fffaf3 0%, #eef7f2 54%, #fff2dd 100%);
+          radial-gradient(circle at 16% 12%, rgba(255, 92, 138, 0.22), transparent 30%),
+          radial-gradient(circle at 88% 18%, rgba(96, 212, 212, 0.18), transparent 28%),
+          linear-gradient(135deg, #171214 0%, #261b18 48%, #102526 100%);
+        overflow-x: hidden;
       }
 
-      .shell {
-        width: min(1180px, calc(100% - 32px));
-        margin: 0 auto;
-      }
+      .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
 
       header {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         gap: 18px;
         padding: 22px 0;
       }
 
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 900;
-        letter-spacing: 0;
-      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; }
 
-      .mark {
-        width: 42px;
-        height: 42px;
+      .logo {
+        width: 44px;
+        height: 44px;
         display: grid;
         place-items: center;
         border-radius: 14px;
-        color: white;
-        background: linear-gradient(135deg, var(--berry), var(--gold));
-        box-shadow: 0 12px 26px rgba(207, 79, 107, 0.24);
+        color: #171214;
+        background: linear-gradient(135deg, var(--lime), var(--amber));
+        box-shadow: 0 0 28px rgba(183, 243, 106, 0.26);
       }
 
-      nav {
-        display: flex;
-        align-items: center;
-        gap: 22px;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      nav a {
-        color: inherit;
-        text-decoration: none;
-      }
+      nav { display: flex; gap: 22px; font-size: 14px; font-weight: 850; color: var(--muted); }
+      nav a { color: inherit; text-decoration: none; }
 
       .hero {
-        min-height: calc(100vh - 92px);
+        min-height: calc(100vh - 88px);
         display: grid;
-        grid-template-columns: minmax(0, 1.02fr) minmax(340px, 0.8fr);
+        grid-template-columns: minmax(0, 1fr) minmax(340px, 460px);
         align-items: center;
         gap: clamp(28px, 5vw, 72px);
-        padding: 28px 0 64px;
+        padding: 30px 0 76px;
       }
 
-      .eyebrow {
+      .badge {
         width: max-content;
         max-width: 100%;
         display: inline-flex;
         align-items: center;
         gap: 10px;
         padding: 9px 13px;
-        border: 1px solid rgba(29, 37, 40, 0.12);
+        border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.56);
+        background: rgba(255, 255, 255, 0.06);
         color: var(--muted);
         font-size: 13px;
         font-weight: 900;
       }
 
-      .dot {
+      .pulse {
         width: 9px;
         height: 9px;
-        border-radius: 999px;
+        border-radius: 50%;
         background: var(--berry);
-        box-shadow: 16px 0 0 var(--gold), 32px 0 0 var(--mint);
+        box-shadow: 16px 0 0 var(--amber), 32px 0 0 var(--aqua);
       }
 
       h1 {
         max-width: 780px;
         margin: 28px 0 22px;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(54px, 9vw, 116px);
-        line-height: 0.95;
+        font-size: clamp(52px, 8.7vw, 112px);
+        line-height: 0.96;
         letter-spacing: 0;
       }
 
       .lead {
-        max-width: 660px;
+        max-width: 680px;
         margin: 0;
-        color: #415052;
-        font-size: clamp(18px, 2.1vw, 25px);
-        line-height: 1.65;
+        color: #d8cbc0;
+        font-size: clamp(18px, 2.1vw, 24px);
+        line-height: 1.7;
       }
 
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 14px;
-        margin-top: 36px;
-      }
+      .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 36px; }
 
       .button {
         min-height: 50px;
@@ -142,137 +116,116 @@
         justify-content: center;
         padding: 0 22px;
         border-radius: 999px;
-        background: var(--ink);
-        color: white;
+        color: #151011;
+        background: var(--lime);
         text-decoration: none;
-        font-weight: 900;
-        box-shadow: 0 16px 34px rgba(29, 37, 40, 0.2);
+        font-weight: 950;
+        box-shadow: 0 18px 42px rgba(183, 243, 106, 0.22);
       }
 
-      .meta {
-        color: var(--muted);
-        font-weight: 800;
-      }
+      .status { color: var(--muted); font-weight: 850; }
 
-      .showcase {
+      .sign {
+        min-height: 610px;
         position: relative;
-        min-height: 620px;
         display: grid;
         place-items: center;
         padding: 28px;
-        border: 1px solid rgba(29, 37, 40, 0.1);
+        border: 1px solid var(--line);
         border-radius: 30px;
         background:
-          linear-gradient(150deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.42)),
-          radial-gradient(circle at 70% 16%, rgba(216, 161, 59, 0.24), transparent 32%);
-        box-shadow: 0 28px 90px rgba(29, 37, 40, 0.14);
+          linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
+          radial-gradient(circle at 68% 12%, rgba(247, 184, 75, 0.22), transparent 34%);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
         overflow: hidden;
+      }
+
+      .sign::before {
+        content: "";
+        position: absolute;
+        inset: 22px;
+        border: 1px solid rgba(183, 243, 106, 0.24);
+        border-radius: 22px;
+        pointer-events: none;
       }
 
       .cake {
         position: relative;
-        width: min(390px, 82vw);
-        aspect-ratio: 1 / 1.16;
+        width: min(350px, 78vw);
+        aspect-ratio: 1 / 1.08;
       }
 
-      .plate {
+      .tray {
         position: absolute;
-        left: 6%;
-        right: 6%;
-        bottom: 5%;
-        height: 38px;
+        left: 4%;
+        right: 4%;
+        bottom: 7%;
+        height: 34px;
         border-radius: 50%;
-        background: #e8ece8;
-        box-shadow: inset 0 -7px 0 rgba(29, 37, 40, 0.08);
+        background: linear-gradient(180deg, #f1e6d8, #9f8a78);
+        opacity: 0.95;
       }
 
-      .layer {
+      .cake-body {
         position: absolute;
-        left: 12%;
-        right: 12%;
-        height: 112px;
-        border-radius: 26px 26px 18px 18px;
+        left: 13%;
+        right: 13%;
+        bottom: 15%;
+        height: 230px;
+        border-radius: 32px 32px 20px 20px;
         background:
-          linear-gradient(90deg, rgba(255, 255, 255, 0.24), transparent 28%),
-          linear-gradient(180deg, #ffd2d9 0%, #e88ca0 100%);
-        box-shadow: 0 18px 34px rgba(91, 59, 46, 0.16);
+          linear-gradient(90deg, rgba(255,255,255,0.18), transparent 32%),
+          repeating-linear-gradient(180deg, #5c3028 0 34px, #3a211d 34px 62px);
+        box-shadow: 0 24px 44px rgba(0, 0, 0, 0.3);
       }
 
-      .layer.one {
-        bottom: 13%;
-      }
-
-      .layer.two {
-        left: 18%;
-        right: 18%;
-        bottom: 34%;
-        background:
-          linear-gradient(90deg, rgba(255, 255, 255, 0.26), transparent 28%),
-          linear-gradient(180deg, #ffe3af 0%, #d8a13b 100%);
-      }
-
-      .layer.three {
-        left: 25%;
-        right: 25%;
-        bottom: 54%;
-        background:
-          linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 28%),
-          linear-gradient(180deg, #bee3d9 0%, #64a391 100%);
-      }
-
-      .cream {
+      .icing {
         position: absolute;
-        inset: -12px 0 auto;
-        height: 26px;
+        left: 9%;
+        right: 9%;
+        bottom: 62%;
+        height: 62px;
         border-radius: 999px;
-        background: #fff8ed;
+        background: #fff2da;
       }
 
-      .cream::after {
+      .icing::after {
         content: "";
         position: absolute;
-        left: 16%;
-        top: 18px;
-        width: 20px;
-        height: 32px;
+        left: 18%;
+        top: 36px;
+        width: 24px;
+        height: 54px;
         border-radius: 999px;
-        background: #fff8ed;
-        box-shadow: 66px -4px 0 -3px #fff8ed, 136px 2px 0 -2px #fff8ed, 205px -5px 0 -3px #fff8ed;
+        background: #fff2da;
+        box-shadow: 78px -7px 0 -3px #fff2da, 152px 4px 0 -5px #fff2da;
       }
 
-      .berry {
+      .cherry {
         position: absolute;
-        width: 22px;
-        height: 22px;
+        left: 47%;
+        top: 15%;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         background: var(--berry);
-        top: 16%;
-        left: 47%;
-        box-shadow: -48px 92px 0 #c93b58, 52px 102px 0 #cf4f6b, -88px 210px 0 #c93b58, 92px 224px 0 #cf4f6b;
+        box-shadow: -56px 96px 0 #ff5c8a, 54px 120px 0 #ff759e, -82px 190px 0 #ff5c8a, 84px 202px 0 #ff759e;
       }
 
-      .tag {
+      .price-tag {
         position: absolute;
-        right: 26px;
+        left: 26px;
         bottom: 26px;
-        max-width: 220px;
+        max-width: 235px;
         padding: 16px;
+        border: 1px solid var(--line);
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.78);
-        border: 1px solid rgba(29, 37, 40, 0.09);
+        background: rgba(18, 16, 18, 0.74);
         backdrop-filter: blur(18px);
-        font-weight: 900;
-        box-shadow: 0 18px 48px rgba(29, 37, 40, 0.11);
+        font-weight: 950;
       }
 
-      .tag span {
-        display: block;
-        margin-top: 7px;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.5;
-        font-weight: 750;
-      }
+      .price-tag span { display: block; margin-top: 7px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 
       .menu {
         display: grid;
@@ -282,122 +235,69 @@
       }
 
       .card {
-        min-height: 148px;
+        min-height: 154px;
         padding: 20px;
+        border: 1px solid var(--line);
         border-radius: 22px;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(29, 37, 40, 0.09);
-        box-shadow: 0 18px 48px rgba(29, 37, 40, 0.08);
+        background: var(--panel);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
       }
 
-      .card b {
-        display: block;
-        margin-bottom: 12px;
-        font-size: 18px;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.65;
-      }
+      .card strong { display: block; margin-bottom: 12px; font-size: 18px; }
+      .card p { margin: 0; color: var(--muted); line-height: 1.65; }
 
       @media (max-width: 880px) {
-        nav {
-          display: none;
-        }
-
-        .hero,
-        .menu {
-          grid-template-columns: 1fr;
-        }
-
-        .showcase {
-          min-height: 520px;
-        }
+        nav { display: none; }
+        .hero, .menu { grid-template-columns: 1fr; }
+        .sign { min-height: 520px; }
       }
 
       @media (max-width: 540px) {
-        .shell {
-          width: min(100% - 24px, 1180px);
-        }
-
-        header {
-          padding-top: 16px;
-        }
-
-        .hero {
-          padding-top: 18px;
-        }
-
-        .showcase {
-          padding: 18px;
-          border-radius: 24px;
-        }
-
-        .tag {
-          left: 18px;
-          right: 18px;
-          max-width: none;
-        }
+        .shell { width: min(100% - 24px, 1180px); }
+        header { padding-top: 16px; }
+        .hero { padding-top: 18px; }
+        .sign { padding: 18px; border-radius: 24px; }
+        .price-tag { left: 18px; right: 18px; max-width: none; }
       }
     </style>
   </head>
   <body>
     <header class="shell">
-      <div class="brand">
-        <div class="mark" aria-hidden="true">C</div>
-        Cakes Atelier
-      </div>
+      <div class="brand"><div class="logo" aria-hidden="true">M</div> Midnight Dessert Studio</div>
       <nav aria-label="页面导航">
         <a href="#menu">Menu</a>
-        <a href="#story">Story</a>
-        <a href="https://cakes.zeabur.app/">Live Site</a>
+        <a href="#studio">Studio</a>
+        <a href="https://cakes.zeabur.app/">Live</a>
       </nav>
     </header>
 
     <main>
-      <section class="hero shell" id="story">
+      <section class="hero shell" id="studio">
         <div>
-          <div class="eyebrow"><span class="dot"></span> Freshly baked landing page</div>
-          <h1>一口甜，刚刚好。</h1>
-          <p class="lead">
-            一个轻盈、干净、适合公网展示的蛋糕主题网页。适合用来测试 Codex 修改、本地提交、GitHub 推送和 Zeabur 自动部署的完整更新链路。
-          </p>
+          <div class="badge"><span class="pulse"></span> GitHub connector update test</div>
+          <h1>夜里的甜品实验室。</h1>
+          <p class="lead">这次页面不是通过 GitHub Desktop 推送，而是由 GitHub connector 直接更新远程仓库。Zeabur 监听 main 分支后，会自动重新部署到公网。</p>
           <div class="actions">
-            <a class="button" href="#menu">查看甜品</a>
-            <span class="meta">GitHub push 后自动上线</span>
+            <a class="button" href="#menu">查看新菜单</a>
+            <span class="status">Remote commit should trigger Zeabur</span>
           </div>
         </div>
 
-        <div class="showcase" aria-label="蛋糕展示">
+        <div class="sign" aria-label="甜品展示">
           <div class="cake" aria-hidden="true">
-            <div class="berry"></div>
-            <div class="layer three"><div class="cream"></div></div>
-            <div class="layer two"><div class="cream"></div></div>
-            <div class="layer one"><div class="cream"></div></div>
-            <div class="plate"></div>
+            <div class="cherry"></div>
+            <div class="icing"></div>
+            <div class="cake-body"></div>
+            <div class="tray"></div>
           </div>
-          <div class="tag">
-            Cakes.zeabur.app
-            <span>当前页面是纯静态 HTML，Zeabur 会按 static 服务部署。</span>
-          </div>
+          <div class="price-tag">Connector Commit<span>如果你看到这个深色甜品工作室页面，说明 GitHub connector 推送链路跑通。</span></div>
         </div>
       </section>
 
       <section class="menu shell" id="menu">
-        <article class="card">
-          <b>莓果奶油蛋糕</b>
-          <p>粉色莓果、轻奶油和柔软蛋糕胚，视觉上清爽，适合生日页面。</p>
-        </article>
-        <article class="card">
-          <b>焦糖海盐卷</b>
-          <p>金色焦糖和微咸风味，适合做成更温暖、更高级的网页视觉。</p>
-        </article>
-        <article class="card">
-          <b>抹茶开心果塔</b>
-          <p>绿色调负责平衡甜感，让页面不像单一粉色主题。</p>
-        </article>
+        <article class="card"><strong>午夜巧克力蛋糕</strong><p>深可可、奶油糖霜和莓果点缀，作为这次新风格的主视觉。</p></article>
+        <article class="card"><strong>柠檬霓虹挞</strong><p>明亮青柠色作为行动按钮，让深色页面保持清爽和可点击。</p></article>
+        <article class="card"><strong>焦糖咖啡布丁</strong><p>暖色细节负责平衡整体氛围，避免页面只有单一暗色。</p></article>
       </section>
     </main>
   </body>
