@@ -3,22 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midnight Dessert Studio</title>
+    <title>生日礼物分享网站</title>
     <style>
       :root {
-        color-scheme: dark;
-        --ink: #f7f0e8;
-        --muted: #b9aea5;
-        --panel: rgba(24, 22, 24, 0.74);
-        --line: rgba(247, 240, 232, 0.14);
-        --berry: #ff5c8a;
-        --lime: #b7f36a;
-        --amber: #f7b84b;
-        --aqua: #60d4d4;
-        --cocoa: #2a1d1a;
+        color-scheme: light;
+        --ink: #1e2737;
+        --muted: #657184;
+        --paper: #fffaf5;
+        --pink: #f66f9b;
+        --coral: #ff9f7f;
+        --mint: #47b9a6;
+        --blue: #5b7cfa;
+        --gold: #f2bd46;
+        --line: rgba(30, 39, 55, 0.11);
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         margin: 0;
@@ -26,45 +28,62 @@
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(circle at 16% 12%, rgba(255, 92, 138, 0.22), transparent 30%),
-          radial-gradient(circle at 88% 18%, rgba(96, 212, 212, 0.18), transparent 28%),
-          linear-gradient(135deg, #171214 0%, #261b18 48%, #102526 100%);
-        overflow-x: hidden;
+          radial-gradient(circle at 10% 10%, rgba(246, 111, 155, 0.23), transparent 31%),
+          radial-gradient(circle at 88% 18%, rgba(71, 185, 166, 0.18), transparent 28%),
+          linear-gradient(135deg, #fffaf5 0%, #eff8ff 48%, #fff1e7 100%);
       }
 
-      .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
 
       header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        gap: 18px;
+        justify-content: space-between;
+        gap: 16px;
         padding: 22px 0;
       }
 
-      .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 950;
+      }
 
-      .logo {
+      .brand-mark {
         width: 44px;
         height: 44px;
         display: grid;
         place-items: center;
-        border-radius: 14px;
-        color: #171214;
-        background: linear-gradient(135deg, var(--lime), var(--amber));
-        box-shadow: 0 0 28px rgba(183, 243, 106, 0.26);
+        border-radius: 15px;
+        color: white;
+        background: linear-gradient(135deg, var(--pink), var(--blue));
+        box-shadow: 0 14px 34px rgba(91, 124, 250, 0.22);
       }
 
-      nav { display: flex; gap: 22px; font-size: 14px; font-weight: 850; color: var(--muted); }
-      nav a { color: inherit; text-decoration: none; }
+      nav {
+        display: flex;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      nav a {
+        color: inherit;
+        text-decoration: none;
+      }
 
       .hero {
         min-height: calc(100vh - 88px);
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(340px, 460px);
+        grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.86fr);
         align-items: center;
         gap: clamp(28px, 5vw, 72px);
-        padding: 30px 0 76px;
+        padding: 26px 0 72px;
       }
 
       .badge {
@@ -76,38 +95,44 @@
         padding: 9px 13px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.62);
         color: var(--muted);
         font-size: 13px;
         font-weight: 900;
       }
 
-      .pulse {
+      .spark {
         width: 9px;
         height: 9px;
         border-radius: 50%;
-        background: var(--berry);
-        box-shadow: 16px 0 0 var(--amber), 32px 0 0 var(--aqua);
+        background: var(--pink);
+        box-shadow: 16px 0 0 var(--gold), 32px 0 0 var(--mint);
       }
 
       h1 {
         max-width: 780px;
         margin: 28px 0 22px;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(52px, 8.7vw, 112px);
+        font-size: clamp(52px, 8.6vw, 112px);
         line-height: 0.96;
         letter-spacing: 0;
       }
 
       .lead {
-        max-width: 680px;
+        max-width: 660px;
         margin: 0;
-        color: #d8cbc0;
-        font-size: clamp(18px, 2.1vw, 24px);
+        color: #435064;
+        font-size: clamp(18px, 2vw, 24px);
         line-height: 1.7;
       }
 
-      .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 36px; }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-top: 36px;
+      }
 
       .button {
         min-height: 50px;
@@ -116,17 +141,20 @@
         justify-content: center;
         padding: 0 22px;
         border-radius: 999px;
-        color: #151011;
-        background: var(--lime);
+        color: white;
+        background: var(--ink);
         text-decoration: none;
         font-weight: 950;
-        box-shadow: 0 18px 42px rgba(183, 243, 106, 0.22);
+        box-shadow: 0 16px 34px rgba(30, 39, 55, 0.2);
       }
 
-      .status { color: var(--muted); font-weight: 850; }
+      .share-note {
+        color: var(--muted);
+        font-weight: 850;
+      }
 
-      .sign {
-        min-height: 610px;
+      .gift-board {
+        min-height: 620px;
         position: relative;
         display: grid;
         place-items: center;
@@ -134,170 +162,232 @@
         border: 1px solid var(--line);
         border-radius: 30px;
         background:
-          linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
-          radial-gradient(circle at 68% 12%, rgba(247, 184, 75, 0.22), transparent 34%);
-        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+          linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.45)),
+          radial-gradient(circle at 68% 14%, rgba(242, 189, 70, 0.24), transparent 36%);
+        box-shadow: 0 28px 90px rgba(30, 39, 55, 0.13);
         overflow: hidden;
       }
 
-      .sign::before {
+      .ribbon {
+        position: absolute;
+        inset: 0 auto 0 50%;
+        width: 54px;
+        transform: translateX(-50%);
+        background: rgba(246, 111, 155, 0.9);
+      }
+
+      .ribbon::after {
         content: "";
         position: absolute;
-        inset: 22px;
-        border: 1px solid rgba(183, 243, 106, 0.24);
-        border-radius: 22px;
-        pointer-events: none;
-      }
-
-      .cake {
-        position: relative;
-        width: min(350px, 78vw);
-        aspect-ratio: 1 / 1.08;
-      }
-
-      .tray {
-        position: absolute;
-        left: 4%;
-        right: 4%;
-        bottom: 7%;
-        height: 34px;
-        border-radius: 50%;
-        background: linear-gradient(180deg, #f1e6d8, #9f8a78);
-        opacity: 0.95;
-      }
-
-      .cake-body {
-        position: absolute;
-        left: 13%;
-        right: 13%;
-        bottom: 15%;
-        height: 230px;
-        border-radius: 32px 32px 20px 20px;
-        background:
-          linear-gradient(90deg, rgba(255,255,255,0.18), transparent 32%),
-          repeating-linear-gradient(180deg, #5c3028 0 34px, #3a211d 34px 62px);
-        box-shadow: 0 24px 44px rgba(0, 0, 0, 0.3);
-      }
-
-      .icing {
-        position: absolute;
-        left: 9%;
-        right: 9%;
-        bottom: 62%;
-        height: 62px;
-        border-radius: 999px;
-        background: #fff2da;
-      }
-
-      .icing::after {
-        content: "";
-        position: absolute;
-        left: 18%;
-        top: 36px;
-        width: 24px;
+        inset: 50% auto auto 50%;
+        width: 900px;
         height: 54px;
-        border-radius: 999px;
-        background: #fff2da;
-        box-shadow: 78px -7px 0 -3px #fff2da, 152px 4px 0 -5px #fff2da;
+        transform: translate(-50%, -50%);
+        background: rgba(246, 111, 155, 0.9);
       }
 
-      .cherry {
-        position: absolute;
-        left: 47%;
-        top: 15%;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: var(--berry);
-        box-shadow: -56px 96px 0 #ff5c8a, 54px 120px 0 #ff759e, -82px 190px 0 #ff5c8a, 84px 202px 0 #ff759e;
+      .gift-card {
+        position: relative;
+        z-index: 1;
+        width: min(420px, 84vw);
+        padding: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 24px 70px rgba(30, 39, 55, 0.18);
+        backdrop-filter: blur(18px);
       }
 
-      .price-tag {
-        position: absolute;
-        left: 26px;
-        bottom: 26px;
-        max-width: 235px;
+      .gift-card h2 {
+        margin: 0 0 12px;
+        font-size: 34px;
+        line-height: 1.08;
+      }
+
+      .gift-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .code-box {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
         padding: 16px;
+        border-radius: 18px;
+        background: #1e2737;
+        color: white;
+      }
+
+      .code-box span {
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .floating {
+        position: absolute;
+        z-index: 2;
+        display: grid;
+        gap: 4px;
+        min-width: 154px;
+        padding: 14px;
         border: 1px solid var(--line);
         border-radius: 18px;
-        background: rgba(18, 16, 18, 0.74);
-        backdrop-filter: blur(18px);
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: 0 18px 48px rgba(30, 39, 55, 0.1);
         font-weight: 950;
       }
 
-      .price-tag span { display: block; margin-top: 7px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+      .floating span {
+        color: var(--muted);
+        font-size: 12px;
+      }
 
-      .menu {
+      .floating.one {
+        left: 24px;
+        top: 34px;
+      }
+
+      .floating.two {
+        right: 24px;
+        bottom: 34px;
+      }
+
+      .section-title {
+        margin: 0 0 18px;
+        font-size: clamp(30px, 4vw, 48px);
+        line-height: 1.05;
+      }
+
+      .wish-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
         padding: 0 0 72px;
       }
 
-      .card {
-        min-height: 154px;
+      .wish {
+        min-height: 164px;
         padding: 20px;
         border: 1px solid var(--line);
         border-radius: 22px;
-        background: var(--panel);
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 18px 48px rgba(30, 39, 55, 0.08);
       }
 
-      .card strong { display: block; margin-bottom: 12px; font-size: 18px; }
-      .card p { margin: 0; color: var(--muted); line-height: 1.65; }
+      .wish strong {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 18px;
+      }
 
-      @media (max-width: 880px) {
-        nav { display: none; }
-        .hero, .menu { grid-template-columns: 1fr; }
-        .sign { min-height: 520px; }
+      .wish p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          display: none;
+        }
+
+        .hero,
+        .wish-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .gift-board {
+          min-height: 540px;
+        }
       }
 
       @media (max-width: 540px) {
-        .shell { width: min(100% - 24px, 1180px); }
-        header { padding-top: 16px; }
-        .hero { padding-top: 18px; }
-        .sign { padding: 18px; border-radius: 24px; }
-        .price-tag { left: 18px; right: 18px; max-width: none; }
+        .shell {
+          width: min(100% - 24px, 1180px);
+        }
+
+        header {
+          padding-top: 16px;
+        }
+
+        .hero {
+          padding-top: 18px;
+        }
+
+        .gift-board {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .floating {
+          display: none;
+        }
       }
     </style>
   </head>
   <body>
     <header class="shell">
-      <div class="brand"><div class="logo" aria-hidden="true">M</div> Midnight Dessert Studio</div>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">礼</div>
+        Birthday Share
+      </div>
       <nav aria-label="页面导航">
-        <a href="#menu">Menu</a>
-        <a href="#studio">Studio</a>
+        <a href="#gift">礼物</a>
+        <a href="#wishes">祝福</a>
         <a href="https://cakes.zeabur.app/">Live</a>
       </nav>
     </header>
 
     <main>
-      <section class="hero shell" id="studio">
+      <section class="hero shell" id="gift">
         <div>
-          <div class="badge"><span class="pulse"></span> GitHub connector update test</div>
-          <h1>夜里的甜品实验室。</h1>
-          <p class="lead">这次页面不是通过 GitHub Desktop 推送，而是由 GitHub connector 直接更新远程仓库。Zeabur 监听 main 分支后，会自动重新部署到公网。</p>
+          <div class="badge"><span class="spark"></span> Birthday gift sharing page</div>
+          <h1>把生日惊喜，分享给最重要的人。</h1>
+          <p class="lead">
+            一个适合发给家人和朋友的生日礼物分享网页：打开链接就能看到祝福、礼物暗号、心愿卡片和温柔的生日氛围。
+          </p>
           <div class="actions">
-            <a class="button" href="#menu">查看新菜单</a>
-            <span class="status">Remote commit should trigger Zeabur</span>
+            <a class="button" href="#wishes">查看祝福卡</a>
+            <span class="share-note">复制链接，就能分享这份惊喜</span>
           </div>
         </div>
 
-        <div class="sign" aria-label="甜品展示">
-          <div class="cake" aria-hidden="true">
-            <div class="cherry"></div>
-            <div class="icing"></div>
-            <div class="cake-body"></div>
-            <div class="tray"></div>
-          </div>
-          <div class="price-tag">Connector Commit<span>如果你看到这个深色甜品工作室页面，说明 GitHub connector 推送链路跑通。</span></div>
+        <div class="gift-board" aria-label="生日礼物卡片">
+          <div class="ribbon" aria-hidden="true"></div>
+          <div class="floating one">今日主角<span>Happy Birthday</span></div>
+          <div class="floating two">礼物状态<span>Ready to open</span></div>
+          <article class="gift-card">
+            <h2>生日快乐，愿望都被认真收藏。</h2>
+            <p>
+              这份网页像一张可以转发的电子贺卡，把礼物、祝福和回忆放在同一个地方，让打开的人第一眼就感到被惦记。
+            </p>
+            <div class="code-box">
+              <span>礼物暗号</span>
+              Open the link, keep the surprise.
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="menu shell" id="menu">
-        <article class="card"><strong>午夜巧克力蛋糕</strong><p>深可可、奶油糖霜和莓果点缀，作为这次新风格的主视觉。</p></article>
-        <article class="card"><strong>柠檬霓虹挞</strong><p>明亮青柠色作为行动按钮，让深色页面保持清爽和可点击。</p></article>
-        <article class="card"><strong>焦糖咖啡布丁</strong><p>暖色细节负责平衡整体氛围，避免页面只有单一暗色。</p></article>
+      <section class="shell" id="wishes">
+        <h2 class="section-title">三张祝福卡</h2>
+        <div class="wish-grid">
+          <article class="wish">
+            <strong>给今天</strong>
+            <p>愿今天的每一个瞬间都刚刚好，有笑声、有蛋糕，也有被爱包围的确定感。</p>
+          </article>
+          <article class="wish">
+            <strong>给新的一岁</strong>
+            <p>愿接下来的日子轻盈顺利，重要的愿望慢慢实现，喜欢的事情都有回响。</p>
+          </article>
+          <article class="wish">
+            <strong>给分享的人</strong>
+            <p>把链接发出去，也把心意发出去。生日礼物不只是一件东西，也是一段被记住的关系。</p>
+          </article>
+        </div>
       </section>
     </main>
   </body>
