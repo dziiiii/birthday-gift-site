@@ -3,129 +3,320 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Party Birthday Wishes</title>
+    <title>Rainbow Birthday Invitation</title>
     <style>
       * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
         min-height: 100vh;
         overflow-x: hidden;
-        color: #24222b;
+        color: #08080c;
         font-family: "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background:
-          radial-gradient(circle at 18% 10%, rgba(255,255,255,.9), transparent 26%),
-          linear-gradient(90deg, rgba(160,170,180,.08) 1px, transparent 1px) 0 0 / 46px 46px,
-          linear-gradient(0deg, rgba(160,170,180,.08) 1px, transparent 1px) 0 0 / 42px 42px,
-          #f4f4f4;
+        background: #fbfbfb;
       }
-      .page { width: min(100% - 28px, 1180px); margin: 0 auto; padding: 34px 0 70px; overflow: hidden; }
-      header { display: flex; justify-content: space-between; align-items: center; gap: 18px; min-height: 50px; font-weight: 900; }
       a { color: inherit; }
-      nav { display: flex; gap: 18px; color: #667085; }
+      [hidden] { display: none !important; }
+      .page {
+        width: min(100% - 28px, 1220px);
+        margin: 0 auto;
+        padding: 24px 0 70px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        min-height: 46px;
+        font-size: 13px;
+        font-weight: 950;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      nav { display: flex; gap: 18px; color: #707381; }
       nav a { text-decoration: none; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 34px; align-items: center; padding: 34px 0; }
-      .scene { position: relative; min-height: 720px; display: grid; align-items: center; }
-      .envelope {
-        position: absolute; right: 0; top: 70px; width: 450px; height: 560px;
-        background: #f8f8f5; box-shadow: 0 26px 54px rgba(70,74,82,.18); overflow: hidden;
-        clip-path: polygon(50% 0, 100% 34%, 100% 100%, 0 100%, 0 34%);
+      .hero { padding: 14px 0 24px; }
+      .cardStage {
+        position: relative;
+        width: min(100%, 1120px);
+        margin: 0 auto;
+        aspect-ratio: 1672 / 941;
       }
-      .envelope:before {
-        content: ""; position: absolute; inset: 84px 0 auto; height: 230px;
-        background: repeating-linear-gradient(0deg, #0daee8 0 24px, #fff 24px 52px);
-        opacity: .95;
+      .artBg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        user-select: none;
+        pointer-events: none;
       }
-      .envelope:after {
-        content: ""; position: absolute; inset: auto 0 0; height: 48%;
-        background: linear-gradient(135deg, transparent 50%, rgba(210,210,210,.55) 51%), linear-gradient(225deg, transparent 50%, rgba(255,255,255,.86) 51%), #f8f8f5;
-      }
-      .card {
-        position: relative; z-index: 2; width: min(100%, 860px); min-height: 620px; padding: 54px 48px 42px;
-        text-align: center; background: #fff6a8; box-shadow: 0 28px 44px rgba(55,60,68,.25);
+      .photoSlot {
+        position: absolute;
+        left: 44.95%;
+        top: 12.2%;
+        width: 37.6%;
+        height: 53.9%;
         overflow: hidden;
+        background: rgba(242, 239, 232, .82);
       }
-      .card:before {
-        content: ""; position: absolute; inset: 0; opacity: .18; pointer-events: none;
-        background: radial-gradient(circle at 20% 20%, #fff 0 1px, transparent 2px) 0 0 / 14px 14px;
+      .photoSlot img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-      .art { position: relative; width: min(100%, 690px); margin: 0 auto 26px; }
-      .art img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
-      [contenteditable] { outline: none; border-radius: 8px; }
-      [contenteditable]:focus { background: rgba(255,255,255,.62); box-shadow: 0 0 0 3px rgba(13,174,232,.16); }
-      h1 {
-        margin: 6px auto 6px; color: #222; font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(34px, 4.4vw, 58px); line-height: 1.03; letter-spacing: .08em; font-weight: 800;
+      .photoPlaceholder {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+        color: rgba(0,0,0,.52);
+        font-size: clamp(14px, 1.6vw, 19px);
+        line-height: 1.5;
+        font-weight: 900;
+        background: linear-gradient(135deg, rgba(255,255,255,.45), rgba(222,218,207,.62));
       }
-      .date { margin: 0; font-size: clamp(18px, 2.2vw, 28px); line-height: 1.45; letter-spacing: .04em; font-weight: 700; }
-      .note { color: #555; margin-top: 10px; font-size: 15px; font-weight: 700; }
-      .panel { align-self: end; padding: 22px; border-radius: 24px; background: rgba(255,255,255,.78); box-shadow: 0 20px 42px rgba(55,60,68,.13); }
-      .panel h2 { margin: 0 0 10px; font-size: 24px; }
-      .panel p { margin: 0; color: #667085; line-height: 1.7; font-weight: 700; }
-      .wishes { display: grid; grid-template-columns: 390px minmax(0, 1fr); gap: 22px; padding-top: 16px; }
-      form, .list { border-radius: 24px; background: rgba(255,255,255,.82); box-shadow: 0 18px 38px rgba(55,60,68,.10); }
+      .intro {
+        position: absolute;
+        left: 18.2%;
+        top: 18.8%;
+        z-index: 3;
+        width: 29%;
+        margin: 0;
+        font-size: clamp(7px, 1.45vw, 20px);
+        line-height: 1.4;
+        font-weight: 950;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+      }
+      .headline {
+        position: absolute;
+        left: 17.9%;
+        top: 34.4%;
+        z-index: 3;
+        width: 31%;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(24px, 7vw, 102px);
+        line-height: .84;
+        letter-spacing: 0;
+        font-weight: 950;
+      }
+      .details {
+        position: absolute;
+        z-index: 4;
+        left: 65.9%;
+        top: 66.4%;
+        width: 16.2%;
+        display: grid;
+        gap: clamp(4px, .45vw, 8px);
+        text-align: right;
+        font-size: clamp(6px, 1.32vw, 18px);
+        line-height: 1;
+        font-weight: 950;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .detail { min-height: 1.2em; }
+      [contenteditable] {
+        outline: none;
+        border-radius: 6px;
+      }
+      [contenteditable]:focus {
+        background: rgba(255,255,255,.74);
+        box-shadow: 0 0 0 3px rgba(16,139,199,.2);
+      }
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 10px auto 0;
+      }
+      .toolButton, .uploadLabel {
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid rgba(8,8,12,.16);
+        border-radius: 999px;
+        color: #fff;
+        background: #111;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 950;
+        cursor: pointer;
+      }
+      .uploadLabel { color: #111; background: #fff; }
+      .uploadLabel input { display: none; }
+      .buttonLabel[contenteditable]:focus {
+        color: inherit;
+        background: rgba(255,255,255,.18);
+        box-shadow: 0 0 0 2px rgba(17,139,199,.24);
+      }
+      .uploadLabel .buttonLabel[contenteditable]:focus { background: rgba(17,139,199,.1); }
+      .status {
+        min-height: 20px;
+        margin-top: 12px;
+        text-align: center;
+        color: #666a78;
+        font-size: 13px;
+        font-weight: 850;
+      }
+      .wishes {
+        display: grid;
+        grid-template-columns: 380px minmax(0, 1fr);
+        gap: 22px;
+        margin-top: 22px;
+      }
+      form, .list {
+        border: 1px solid rgba(8,8,12,.09);
+        border-radius: 22px;
+        background: rgba(255,255,255,.92);
+        box-shadow: 0 18px 38px rgba(28,30,35,.08);
+      }
       form { padding: 20px; display: grid; gap: 12px; align-content: start; }
+      .formTitle, .list h2 { margin: 0 0 4px; font-size: 24px; }
+      .formNote { margin: 0 0 6px; color: #666a78; line-height: 1.55; font-weight: 750; }
       input, textarea, button {
-        width: 100%; border: 1px solid rgba(36,34,43,.14); border-radius: 14px; padding: 13px 14px;
-        font: inherit; font-weight: 700; background: #fff;
+        width: 100%;
+        border: 1px solid rgba(8,8,12,.14);
+        border-radius: 14px;
+        padding: 13px 14px;
+        font: inherit;
+        font-weight: 750;
+        background: #fff;
       }
       textarea { min-height: 116px; resize: vertical; }
-      button { border: 0; color: #fff; background: #0daee8; cursor: pointer; font-weight: 900; }
+      button { border: 0; color: #fff; background: #111; cursor: pointer; font-weight: 950; }
+      .toolButton { width: auto; }
       .list { padding: 20px; min-height: 280px; }
-      .list h2 { margin: 0 0 14px; }
-      .wish { padding: 14px 0; border-top: 1px solid rgba(36,34,43,.10); }
+      .wish { padding: 14px 0; border-top: 1px solid rgba(8,8,12,.10); }
       .wish:first-of-type { border-top: 0; }
       .wish strong { display: block; margin-bottom: 6px; }
       .wish p { margin: 0; color: #475467; line-height: 1.65; font-weight: 650; white-space: pre-wrap; }
-      .empty { color: #667085; font-weight: 700; }
+      .empty { color: #666a78; font-weight: 750; }
       @media (max-width: 900px) {
         nav { display: none; }
-        .hero, .wishes { grid-template-columns: 1fr; }
-        .scene { min-height: auto; }
-        .envelope { right: -80px; top: 80px; width: 310px; height: 420px; opacity: .75; }
-        .card { min-height: 520px; padding: 36px 22px 32px; }
-        .panel { align-self: auto; }
+        .page { width: min(100% - 20px, 1220px); }
+        .wishes { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) {
+        header { align-items: flex-start; flex-direction: column; }
+        .tools { align-items: stretch; flex-direction: column; }
+        .toolButton, .uploadLabel { width: 100%; }
       }
     </style>
   </head>
   <body>
     <main class="page">
       <header>
-        <a href="../" style="text-decoration:none">Party Birthday Card</a>
-        <nav><a href="#wishes">祝福区</a><a href="../card5/">Card 5</a><a href="../">首页</a></nav>
+        <a href="../" style="text-decoration:none" data-edit="brand" contenteditable="true">Rainbow Birthday Card</a>
+        <nav><a href="#wishes">祝福区</a><a href="../">首页</a></nav>
       </header>
 
       <section class="hero">
-        <div class="scene">
-          <div class="envelope" aria-hidden="true"></div>
-          <article class="card">
-            <div class="art"><img src="./assets/party-characters.png" alt="生日派对插画"></div>
-            <h1 contenteditable="true">BIRTHDAY PARTY</h1>
-            <p class="date" contenteditable="true">July 4th at 5pm<br>Our home</p>
-            <p class="note" contenteditable="true">Cake, candles and happy wishes will be served.</p>
-          </article>
+        <div class="cardStage" aria-label="生日邀请卡">
+          <img class="artBg" src="./assets/rainbow-invite-bg.png" alt="">
+          <div class="photoSlot">
+            <img id="cardPhoto" alt="生日照片" hidden>
+            <div id="photoPlaceholder" class="photoPlaceholder" data-edit="photoPlaceholder" contenteditable="true">上传一张主角照片<br>它会显示在这里</div>
+          </div>
+          <p class="intro" data-edit="intro" contenteditable="true">JOIN US AS WE THROW JANE<br>A VERY SPECIAL<br>3RD BIRTHDAY PARTY</p>
+          <h1 class="headline" data-edit="headline" contenteditable="true">young,<br>wild &<br>three</h1>
+          <div class="details">
+            <div class="detail" data-edit="date" contenteditable="true">FRIDAY, AUGUST 24TH</div>
+            <div class="detail" data-edit="time" contenteditable="true">AT 4 P.M.</div>
+            <div class="detail" data-edit="place" contenteditable="true">OUR PLACE</div>
+          </div>
         </div>
-        <aside class="panel">
-          <h2>给朋友发祝福</h2>
-          <p>下面是共享祝福区。别人打开同一个公网链接，也能看到大家写下的祝福。</p>
-        </aside>
+
+        <div class="tools" aria-label="编辑工具">
+          <button class="toolButton" id="saveSettings" type="button"><span class="buttonLabel" data-edit="saveButton" contenteditable="true">保存文字</span></button>
+          <label class="uploadLabel"><span class="buttonLabel" data-edit="uploadButton" contenteditable="true">上传照片</span><input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        </div>
+        <div id="status" class="status" data-edit="statusHint" contenteditable="true">点击文字即可修改，保存后公网也会更新。</div>
       </section>
 
       <section id="wishes" class="wishes">
         <form id="wishForm">
+          <h2 class="formTitle" data-edit="wishFormTitle" contenteditable="true">给朋友发祝福</h2>
+          <p class="formNote" data-edit="wishFormNote" contenteditable="true">把这张卡发出去，大家写下的祝福会一起留在这里。</p>
           <input id="name" maxlength="40" placeholder="你的名字" required>
           <textarea id="message" maxlength="500" placeholder="写一句生日祝福..." required></textarea>
-          <button type="submit">发送祝福</button>
+          <button id="wishButton" type="submit"><span class="buttonLabel" data-edit="wishButton" contenteditable="true">发送祝福</span></button>
         </form>
         <div class="list">
-          <h2>祝福留言</h2>
+          <h2 data-edit="wishListTitle" contenteditable="true">祝福留言</h2>
           <div id="wishList" class="empty">正在读取...</div>
         </div>
       </section>
     </main>
 
     <script>
+      const editableNodes = [...document.querySelectorAll('[data-edit]')];
       const list = document.getElementById('wishList');
       const form = document.getElementById('wishForm');
+      const status = document.getElementById('status');
+      const cardPhoto = document.getElementById('cardPhoto');
+      const photoPlaceholder = document.getElementById('photoPlaceholder');
+
+      async function loadSettings() {
+        const res = await fetch('/api/card6/settings');
+        const data = await res.json();
+        editableNodes.forEach(node => {
+          const key = node.dataset.edit;
+          if (Object.prototype.hasOwnProperty.call(data, key)) node.innerHTML = data[key];
+        });
+        updatePhoto(data.photoUpdatedAt);
+      }
+
+      async function saveSettings() {
+        const settings = {};
+        editableNodes.forEach(node => {
+          settings[node.dataset.edit] = node.innerHTML.trim();
+        });
+        const res = await fetch('/api/card6/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(settings)
+        });
+        if (!res.ok) throw new Error('save_failed');
+        status.textContent = '已保存文字。';
+      }
+
+      function updatePhoto(version) {
+        if (!version) {
+          cardPhoto.hidden = true;
+          photoPlaceholder.hidden = false;
+          return;
+        }
+        cardPhoto.src = `/api/card6/photo?v=${encodeURIComponent(version)}`;
+        cardPhoto.hidden = false;
+        photoPlaceholder.hidden = true;
+      }
+
+      async function uploadPhoto(file) {
+        const reader = new FileReader();
+        const dataUrl = await new Promise((resolve, reject) => {
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        const res = await fetch('/api/card6/photo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: dataUrl })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'upload_failed');
+        updatePhoto(data.photoUpdatedAt);
+        status.textContent = '照片已上传，公网会显示这张图。';
+      }
 
       async function loadWishes() {
         const res = await fetch('/api/wishes');
@@ -137,14 +328,31 @@
         }
         list.className = '';
         list.innerHTML = data.map(w => `
-          <article class=\"wish\">
+          <article class="wish">
             <strong>${escapeHtml(w.name)}</strong>
             <p>${escapeHtml(w.message)}</p>
           </article>
         `).join('');
       }
 
-      form.addEventListener('submit', async (event) => {
+      document.getElementById('saveSettings').addEventListener('click', event => {
+        event.preventDefault();
+        saveSettings().catch(() => {
+          status.textContent = '保存失败，请稍后再试。';
+        });
+      });
+
+      document.getElementById('photoInput').addEventListener('change', event => {
+        const file = event.target.files[0];
+        if (!file) return;
+        status.textContent = '正在上传照片...';
+        uploadPhoto(file).catch(() => {
+          status.textContent = '上传失败，请换一张 5MB 以内的 JPG、PNG 或 WebP。';
+        });
+        event.target.value = '';
+      });
+
+      form.addEventListener('submit', async event => {
         event.preventDefault();
         const name = document.getElementById('name').value.trim();
         const message = document.getElementById('message').value.trim();
@@ -168,12 +376,10 @@
         }[ch]));
       }
 
-      setTimeout(loadWishes, 0);
-      window.addEventListener('focus', loadWishes);
-      loadWishes().catch(() => {
-        list.className = 'empty';
-        list.textContent = '本地直接打开文件时不能使用共享数据库，请通过 Node 服务或 Zeabur 访问。';
+      Promise.all([loadSettings(), loadWishes()]).catch(() => {
+        status.textContent = '本地直接打开文件时不能使用保存功能，请通过 Node 服务或 Zeabur 访问。';
       });
+      window.addEventListener('focus', loadWishes);
     </script>
   </body>
 </html>

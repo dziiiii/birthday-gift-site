@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editable Animal Birthday Card</title>
+    <style>
+      :root {
+        --ink: #2b3f5c;
+        --red: #ee4456;
+        --blue: #2e77b9;
+        --paper: #fbf3e6;
+        --paper-deep: #f4e5cf;
+        --shadow: rgba(48, 55, 66, .28);
+        --pink: #f3979d;
+        --pink-dark: #e57882;
+        --gold: #b6885a;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        overflow-x: hidden;
+        background:
+          linear-gradient(90deg, rgba(255,255,255,.11) 1px, transparent 1px) 0 0 / 36px 36px,
+          linear-gradient(0deg, rgba(255,255,255,.12) 1px, transparent 1px) 0 0 / 42px 42px,
+          radial-gradient(circle at 12% 14%, rgba(255,255,255,.45), transparent 28%),
+          linear-gradient(135deg, #cbe4f2, #e6f2f7 48%, #c9dfed);
+      }
+
+      .page {
+        width: min(100% - 32px, 1280px);
+        margin: 0 auto;
+        padding: 28px 0 72px;
+        overflow: hidden;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 58px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #28405f;
+        text-decoration: none;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 32% 28%, #fff 0 5px, transparent 6px),
+          linear-gradient(145deg, #ffcc58, #ef5666 62%, #2f83c9);
+        box-shadow: 0 12px 28px rgba(47, 90, 126, .22);
+      }
+
+      nav { display: flex; gap: 18px; font-weight: 900; }
+      nav a { color: rgba(43, 63, 92, .72); text-decoration: none; }
+
+      .hero {
+        min-height: calc(100vh - 86px);
+        display: grid;
+        grid-template-columns: minmax(340px, .74fr) minmax(260px, .26fr);
+        align-items: center;
+        gap: 26px;
+        padding: 24px 0 42px;
+      }
+
+      .scene {
+        position: relative;
+        min-height: 880px;
+      }
+
+      .envelope {
+        position: absolute;
+        right: 2%;
+        top: 120px;
+        width: min(40vw, 520px);
+        height: 660px;
+        border-radius: 42px 42px 10px 10px;
+        background: linear-gradient(135deg, #ff9fa5, var(--pink));
+        box-shadow: 0 26px 56px rgba(82, 93, 106, .22);
+        overflow: hidden;
+        transform: rotate(0deg);
+      }
+
+      .envelope:before {
+        content: "";
+        position: absolute;
+        left: 9%;
+        top: 7%;
+        width: 78%;
+        height: 72%;
+        background:
+          radial-gradient(circle at 30% 40%, rgba(255,240,191,.48), transparent 22%),
+          radial-gradient(circle at 68% 36%, rgba(122,72,45,.32), transparent 24%),
+          linear-gradient(135deg, #d8a66e, #9a543b 58%, #d8a66e);
+        clip-path: polygon(50% 0, 100% 78%, 0 78%);
+        opacity: .78;
+        filter: saturate(.95);
+      }
+
+      .envelope:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 44%;
+        background:
+          linear-gradient(135deg, transparent 0 50%, rgba(214,111,119,.42) 51%),
+          linear-gradient(225deg, transparent 0 50%, rgba(255,178,184,.72) 51%),
+          linear-gradient(180deg, #f9a3a9, #ef8790);
+      }
+
+      .card {
+        position: relative;
+        z-index: 2;
+        width: min(76vw, 740px);
+        min-height: 900px;
+        display: grid;
+        grid-template-rows: 1fr auto auto;
+        padding: clamp(26px, 4vw, 48px) clamp(24px, 4vw, 48px) 54px;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(255,255,255,.48), transparent 18%),
+          linear-gradient(135deg, rgba(255,255,255,.32), transparent 44%),
+          var(--paper);
+        box-shadow: 0 26px 46px var(--shadow);
+        overflow: hidden;
+      }
+
+      .card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: .26;
+        background:
+          radial-gradient(circle at 12% 14%, #c69d80 0 1.5px, transparent 2px) 0 0 / 52px 52px,
+          radial-gradient(circle at 80% 20%, #c69d80 0 1.5px, transparent 2px) 0 0 / 44px 44px;
+        pointer-events: none;
+      }
+
+      .stars {
+        position: absolute;
+        inset: 16px;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: #b28b72;
+        opacity: .8;
+      }
+
+      .star:before,
+      .star:after {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 1px;
+        width: 2px;
+        height: 18px;
+        border-radius: 999px;
+        background: currentColor;
+      }
+
+      .star:after { transform: rotate(90deg); }
+      .star i,
+      .star b {
+        position: absolute;
+        left: 9px;
+        top: 1px;
+        display: block;
+        width: 2px;
+        height: 18px;
+        border-radius: 999px;
+        background: currentColor;
+        transform: rotate(45deg);
+      }
+      .star b { transform: rotate(-45deg); }
+
+      .illustration {
+        position: relative;
+        z-index: 1;
+        min-height: 540px;
+      }
+
+      .balloon {
+        position: absolute;
+        width: var(--w);
+        height: var(--h);
+        left: var(--x);
+        top: var(--y);
+        border-radius: 50% 50% 46% 46%;
+        background: var(--c);
+        box-shadow: inset 12px 14px 18px rgba(255,255,255,.20);
+        transform: rotate(var(--r));
+      }
+
+      .balloon:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -186px;
+        width: 1.5px;
+        height: 190px;
+        background: rgba(65,71,72,.42);
+        transform: rotate(calc(var(--r) * -1));
+        transform-origin: top;
+      }
+
+      .balloon:before {
+        content: "";
+        position: absolute;
+        left: 48%;
+        bottom: -8px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 11px solid var(--c);
+      }
+
+      .ride {
+        position: absolute;
+        left: 4%;
+        right: 2%;
+        bottom: 26px;
+        height: 178px;
+      }
+
+      .narwhal-body {
+        position: absolute;
+        left: 44px;
+        right: 22px;
+        bottom: 24px;
+        height: 128px;
+        background: #447fc4;
+        border-radius: 80% 24% 70% 42%;
+        transform: rotate(-2deg);
+      }
+
+      .narwhal-body:before {
+        content: "";
+        position: absolute;
+        left: -78px;
+        top: -58px;
+        width: 150px;
+        height: 142px;
+        background: #4c8ed4;
+        border-radius: 78% 44% 46% 60%;
+        transform: rotate(-26deg);
+      }
+
+      .narwhal-body:after {
+        content: "";
+        position: absolute;
+        right: -26px;
+        top: 24px;
+        width: 92px;
+        height: 72px;
+        background: #4d86ce;
+        border-radius: 20% 84% 58% 28%;
+        transform: rotate(-22deg);
+      }
+
+      .horn {
+        position: absolute;
+        left: 28px;
+        top: -8px;
+        width: 30px;
+        height: 112px;
+        background:
+          repeating-linear-gradient(160deg, rgba(111,70,57,.85) 0 7px, rgba(247,220,178,.8) 8px 15px);
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        transform: rotate(-34deg);
+      }
+
+      .dot {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.74);
+      }
+
+      .animal {
+        position: absolute;
+        bottom: 70px;
+        width: var(--w);
+        height: var(--h);
+        left: var(--x);
+      }
+
+      .animal .body {
+        position: absolute;
+        inset: 20% 12% 8%;
+        border-radius: 48%;
+        background: var(--body);
+      }
+
+      .animal .head {
+        position: absolute;
+        left: 22%;
+        top: 0;
+        width: 54%;
+        height: 46%;
+        border-radius: 50%;
+        background: var(--body);
+      }
+
+      .animal .eye {
+        position: absolute;
+        left: 43%;
+        top: 24%;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #384455;
+      }
+
+      .animal .smile {
+        position: absolute;
+        left: 36%;
+        top: 31%;
+        width: 24px;
+        height: 15px;
+        border-bottom: 3px solid #384455;
+        border-radius: 50%;
+      }
+
+      .party-hat {
+        position: absolute;
+        left: 42%;
+        top: -18px;
+        width: 34px;
+        height: 62px;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        background: repeating-linear-gradient(0deg, #51c59b 0 10px, #6689d9 10px 20px);
+        transform: rotate(2deg);
+      }
+
+      .leg {
+        position: absolute;
+        bottom: 0;
+        width: 16px;
+        height: 48px;
+        border-radius: 999px;
+        background: var(--leg);
+      }
+
+      .leg.one { left: 24%; transform: rotate(10deg); }
+      .leg.two { right: 23%; transform: rotate(-10deg); }
+
+      .cupcake {
+        position: absolute;
+        left: 49%;
+        bottom: 48px;
+        width: 78px;
+        height: 128px;
+        transform: translateX(-50%);
+      }
+
+      .cupcake .top {
+        position: absolute;
+        left: 8px;
+        top: 0;
+        width: 62px;
+        height: 48px;
+        border-radius: 40px 40px 16px 16px;
+        background: #ffe063;
+        box-shadow: inset 0 -8px 0 rgba(237,168,52,.22);
+      }
+
+      .cupcake .base {
+        position: absolute;
+        left: 14px;
+        bottom: 0;
+        width: 50px;
+        height: 86px;
+        background:
+          repeating-linear-gradient(90deg, #ef4d64 0 8px, #ffe7e5 8px 16px);
+        border-radius: 6px 6px 18px 18px;
+      }
+
+      .card-title {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        margin-top: 16px;
+        text-align: center;
+      }
+
+      [contenteditable="true"] {
+        outline: none;
+        border-radius: 10px;
+        transition: background .18s ease, box-shadow .18s ease;
+      }
+
+      [contenteditable="true"]:focus {
+        background: rgba(255,255,255,.72);
+        box-shadow: 0 0 0 3px rgba(46,119,185,.18);
+      }
+
+      .headline {
+        margin: 0;
+        color: var(--red);
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(58px, 6.4vw, 88px);
+        line-height: .98;
+        letter-spacing: .035em;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 0 rgba(205,64,74,.12);
+      }
+
+      .subline {
+        margin: 0;
+        color: var(--blue);
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(16px, 1.7vw, 22px);
+        line-height: 1.4;
+        letter-spacing: .28em;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .side-panel {
+        align-self: end;
+        margin-bottom: 92px;
+        padding: 22px;
+        border: 1px solid rgba(42,63,92,.12);
+        border-radius: 22px;
+        background: rgba(255,255,255,.56);
+        box-shadow: 0 18px 38px rgba(48,55,66,.12);
+      }
+
+      .side-panel h2 {
+        margin: 0 0 12px;
+        font-size: 24px;
+      }
+
+      .side-panel p {
+        margin: 0;
+        color: rgba(43,63,92,.72);
+        line-height: 1.72;
+        font-weight: 750;
+      }
+
+      .toolbar {
+        position: fixed;
+        z-index: 20;
+        left: 50%;
+        bottom: 18px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid rgba(42,63,92,.14);
+        border-radius: 999px;
+        background: rgba(255,255,255,.88);
+        box-shadow: 0 16px 40px rgba(50, 61, 75, .18);
+        transform: translateX(-50%);
+        backdrop-filter: blur(16px);
+      }
+
+      .toolbar button {
+        min-height: 40px;
+        border: 0;
+        border-radius: 999px;
+        padding: 0 16px;
+        color: #fff;
+        background: #2e77b9;
+        font: inherit;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .toolbar .ghost {
+        color: #2e77b9;
+        background: rgba(46,119,185,.10);
+      }
+
+      @media (max-width: 980px) {
+        nav { display: none; }
+        .hero {
+          grid-template-columns: 1fr;
+          padding-top: 12px;
+        }
+        .scene { min-height: 780px; }
+        .card {
+          width: min(100%, 680px);
+          min-height: 820px;
+          margin: 0 auto;
+        }
+        .envelope {
+          right: -28px;
+          top: 150px;
+          width: 360px;
+          height: 560px;
+          opacity: .72;
+        }
+        .side-panel { margin: 0; }
+      }
+
+      @media (max-width: 560px) {
+        .page { width: min(100% - 20px, 1280px); padding-bottom: 96px; }
+        header { min-height: 50px; }
+        .scene { min-height: 650px; }
+        .card {
+          width: 100%;
+          max-width: 100%;
+          min-height: 650px;
+          padding: 22px 18px 34px;
+        }
+        .illustration { min-height: 390px; transform: scale(.78); transform-origin: top center; width: 128%; margin-left: -14%; }
+        .headline { font-size: clamp(42px, 13vw, 54px); letter-spacing: .02em; }
+        .subline { font-size: 14px; letter-spacing: .12em; }
+        .envelope {
+          top: 96px;
+          right: -72px;
+          width: 250px;
+          height: 430px;
+        }
+        .toolbar {
+          width: calc(100% - 24px);
+          justify-content: center;
+          border-radius: 18px;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <a class="brand" href="../">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Editable Birthday Card</span>
+        </a>
+        <nav aria-label="页面导航">
+          <a href="../card4/">Card 4</a>
+          <a href="../card3/">Card 3</a>
+          <a href="../">首页</a>
+        </nav>
+      </header>
+
+      <section class="hero" aria-label="可编辑生日贺卡">
+        <div class="scene">
+          <div class="envelope" aria-hidden="true"></div>
+          <article class="card">
+            <div class="stars" aria-hidden="true" id="stars"></div>
+            <div class="illustration" aria-hidden="true">
+              <span class="balloon" style="--x: 15%; --y: 96px; --w: 72px; --h: 82px; --c: #3d87c7; --r: -12deg"></span>
+              <span class="balloon" style="--x: 25%; --y: 28px; --w: 86px; --h: 98px; --c: #d2d21f; --r: 10deg"></span>
+              <span class="balloon" style="--x: 36%; --y: 6px; --w: 86px; --h: 106px; --c: #348cd0; --r: 18deg"></span>
+              <span class="balloon" style="--x: 46%; --y: 70px; --w: 86px; --h: 94px; --c: #3dbb95; --r: -4deg"></span>
+              <span class="balloon" style="--x: 63%; --y: 28px; --w: 82px; --h: 100px; --c: #ee4456; --r: 8deg"></span>
+              <span class="balloon" style="--x: 75%; --y: 92px; --w: 66px; --h: 72px; --c: #f394a1; --r: -10deg"></span>
+              <span class="balloon" style="--x: 71%; --y: 74px; --w: 72px; --h: 84px; --c: #d2d21f; --r: 5deg"></span>
+
+              <div class="ride">
+                <div class="narwhal-body">
+                  <span class="horn"></span>
+                  <span class="dot" style="left: 130px; top: 92px"></span>
+                  <span class="dot" style="left: 218px; top: 98px"></span>
+                  <span class="dot" style="left: 354px; top: 84px"></span>
+                  <span class="dot" style="right: 168px; top: 88px"></span>
+                </div>
+
+                <div class="animal" style="--x: 210px; --w: 92px; --h: 156px; --body: #f28a35; --leg: #e06b28">
+                  <div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+                <div class="animal" style="--x: 306px; --w: 86px; --h: 180px; --body: #52b878; --leg: #359b62">
+                  <div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+                <div class="cupcake">
+                  <div class="top"></div>
+                  <div class="base"></div>
+                </div>
+                <div class="animal" style="--x: 430px; --w: 100px; --h: 150px; --body: #f6c63f; --leg: #d89a22">
+                  <span class="party-hat"></span><div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+                <div class="animal" style="--x: 520px; --w: 82px; --h: 148px; --body: #ffffff; --leg: #e2e7ea">
+                  <div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+                <div class="animal" style="--x: 608px; --w: 92px; --h: 168px; --body: #f790a7; --leg: #e85d77">
+                  <div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+                <div class="animal" style="--x: 690px; --w: 100px; --h: 166px; --body: #a36b4e; --leg: #81543d">
+                  <span class="party-hat"></span><div class="body"></div><div class="head"></div><span class="eye"></span><span class="smile"></span><span class="leg one"></span><span class="leg two"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-title">
+              <h1 class="headline" contenteditable="true" data-edit-key="card5-title">HAPPY<br />BIRTHDAY</h1>
+              <p class="subline" contenteditable="true" data-edit-key="card5-subtitle">EXTRA CUPCAKES FOR YOU</p>
+            </div>
+          </article>
+        </div>
+
+        <aside class="side-panel">
+          <h2 contenteditable="true" data-edit-key="card5-panel-title">点击文字就能修改</h2>
+          <p contenteditable="true" data-edit-key="card5-panel-body">这个页面的标题、副标题和这段说明都可以直接在浏览器里编辑。修改会自动保存在这台电脑的浏览器本地。</p>
+        </aside>
+      </section>
+    </main>
+
+    <div class="toolbar" aria-label="编辑工具">
+      <button type="button" id="saveBtn">保存文字</button>
+      <button type="button" class="ghost" id="resetBtn">恢复默认</button>
+    </div>
+
+    <script>
+      const starLayer = document.getElementById("stars");
+      const starPositions = [
+        [2, 2], [13, 4], [24, 1], [35, 6], [47, 2], [59, 5], [72, 2], [86, 7],
+        [3, 24], [14, 18], [82, 22], [94, 28], [4, 42], [91, 44], [2, 70],
+        [94, 70], [5, 86], [16, 96], [28, 96], [40, 97], [52, 96], [64, 96],
+        [76, 96], [88, 94], [96, 88]
+      ];
+      starPositions.forEach(([left, top], index) => {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.style.left = left + "%";
+        star.style.top = top + "%";
+        star.style.transform = `scale(${index % 3 === 0 ? 0.72 : index % 3 === 1 ? 0.9 : 0.56}) rotate(${index * 11}deg)`;
+        star.innerHTML = "<i></i><b></b>";
+        starLayer.appendChild(star);
+      });
+
+      const editableNodes = [...document.querySelectorAll("[contenteditable][data-edit-key]")];
+      const defaults = {};
+      editableNodes.forEach((node) => {
+        const key = node.dataset.editKey;
+        defaults[key] = node.innerHTML;
+        const saved = localStorage.getItem(key);
+        if (saved !== null) node.innerHTML = saved;
+        node.addEventListener("input", () => localStorage.setItem(key, node.innerHTML));
+      });
+
+      document.getElementById("saveBtn").addEventListener("click", () => {
+        editableNodes.forEach((node) => localStorage.setItem(node.dataset.editKey, node.innerHTML));
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        editableNodes.forEach((node) => {
+          node.innerHTML = defaults[node.dataset.editKey];
+          localStorage.removeItem(node.dataset.editKey);
+        });
+      });
+    </script>
+  </body>
+</html>
