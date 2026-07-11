@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = __dirname;
-const dataDir = path.join(root, "data");
+const dataDir = process.env.DATA_DIR || path.join(root, "data");
 const dbFile = path.join(dataDir, "wishes.json");
 const card6SettingsFile = path.join(dataDir, "card6-settings.json");
 const card6PhotoFile = path.join(dataDir, "card6-photo");
