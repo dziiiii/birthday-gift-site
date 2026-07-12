@@ -1,0 +1,4 @@
+{
+  "build_command": "echo 'No build required'",
+  "start_command": "node server.cjs"
+}
